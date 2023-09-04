@@ -1,13 +1,13 @@
 ## NAVER CLOUD PLATFORM Video Player Enhancement DEMO
 
-미디어플러스에서 제공하는 NAVERCLOUD VPE Player의 기본 코드
+미디어플러스에서 제공하는 NAVERCLOUD VPE Player를 이용한 Youtube 테마의 데모 페이지입니다.
 
-![](https://nnbkegvqsbcu5297614.cdn.ntruss.com/profile/202308/b3567d2fd1acd4a38efeafd99e2d121c.png)
+![](https://nnbkegvqsbcu5297614.cdn.ntruss.com/profile/202309/4232fdfa6edcc1698be53634fb7b5cc3.png)
 
 
 
 ## 소스코드
-[https://github.com/SGRsoft-Dev/mediaplus.demo.vpe.basic](https://github.com/SGRsoft-Dev/mediaplus.demo.vpe.basic)
+[https://github.com/SGRsoft-Dev/vpe.clone.youtube](https://github.com/SGRsoft-Dev/vpe.clone.youtube)
 
 
 *** 
@@ -20,9 +20,10 @@
 
 ## 제한사항
 
-현재 데모코드에 사용된 필수 요소들은 개발자 로컬 테스트에서만 동작합니다. (http://localhost:3000)
+- 현재 데모코드에 사용된 필수 요소들은 개발자 로컬 테스트에서만 동작합니다. (http://localhost:3000)
 
-네이버클라우드 플랫폼 Video Player Enhancement 유료 라이선스가 필요합니다.
+- 네이버클라우드 플랫폼 Video Player Enhancement 유료 라이선스가 필요합니다.
+- 현재 데모는 VPE 1.1.1 (beta) 버전을 기준으로 작성되었습니다.
 ***
 
 
@@ -39,31 +40,6 @@ https://guide.ncloud-docs.com/docs/vpe-web
 ***
 
 
-## NCP Video Player Enhancement SDK 설정
-![](https://nnbkegvqsbcu5297614.cdn.ntruss.com/profile/202308/7a602c53cc6a0b69759031e44ad8e5d9.png)
-
-네이버클라우드 콘솔에서 Video Player Enhancement 진입
-
-***
-
-![](https://nnbkegvqsbcu5297614.cdn.ntruss.com/profile/202308/bc8f9b9850f93396e7e07ca2c1c9cd4d.png)
-
-플레이어를 신규로 생성합니다.
-
-***
-
-![](https://nnbkegvqsbcu5297614.cdn.ntruss.com/profile/202308/37fc51c8dccfdf2711ba7500203c685c.png)
-
-서비스를 운영할 도메인을 입력합니다.
-
-***
-
-![](https://nnbkegvqsbcu5297614.cdn.ntruss.com/profile/202308/6ad95ea2ed84a4412224a68f17d22c1b.png)
-
-생성된 플레이어의 SDK URL를 복사합니다.
-
-***
-
 ## 실행방법
 
 ```bash
@@ -71,6 +47,86 @@ $ npm install
 $ npm run dev
 ```
 
+## 아이콘 테마 변경
+
+```javascript
+    window.player = new ncplayer('player',{
+    ....
+        icon:{
+    
+            bigPlay:"/svg/material/youtube-logo-fill.svg",
+            play:"/svg/material/play_arrow_white_24dp.svg",
+            pause:"/svg/material/pause_black_24dp.svg",
+            prev:"/svg/material/skip_previous_white_24dp.svg",
+            next:"/svg/material/skip_next_white_24dp.svg",
+            replay:"/svg/material/replay_white_24dp.svg",
+            subtitle:"/svg/material/subtitles_white_24dp.svg",
+            subtitleOff:"/svg/material/subtitles_off_white_24dp.svg",
+            fullscreen:"/svg/material/fullscreen_white_24dp.svg",
+            fullscreenExit:"/svg/material/fullscreen_exit_white_24dp.svg",
+            volumeFull:"/svg/material/volume_up_white_24dp.svg",
+            volumeMute:"/svg/material/volume_off_white_24dp.svg",
+            volumeMid:"/svg/material/volume_down_white_24dp.svg",
+            pip:"/svg/material/picture_in_picture_alt_white_24dp.svg",
+            setting:"/svg/material/settings_white_24dp.svg",
+    
+        }
+    ....
+    });
+
+```
+
+
+## 커스텀 버튼 추가
+
+```javascript
+window.player = new ncplayer('player',{
+    ....
+
+        customBtns:[
+            {
+                ui:'pc',
+                position:'right-bottom',
+                icon:'/image/autoplay-off.svg',
+                activeIcon:'/image/autoplay-on.svg',
+                tooltip: '자동 재생 사용 설정',
+                activeTooltip: '자동 재생 사용 중지',
+                flow:'left',
+                default:autoPlayMode,
+                callback(res){
+                    if(res){
+                        autoPlayMode = true;
+                        window.player.nextSourceRunOn();
+                    }else{
+                        autoPlayMode = false;
+                        window.player.nextSourceRunOff();
+                    }
+
+                    localStorage.setItem('autoPlayMode',autoPlayMode ? 'Y' : 'N');
+                }
+            },
+
+            {
+                ui:'pc',
+                position:'right-bottom',
+                icon:'/image/crop_16_9_white_24dp.svg',
+                activeIcon:'/image/crop_7_5_white_24dp.svg',
+                tooltip:'몰입 모드',
+                activeTooltip:'기본 모드',
+                flow:'left',
+                default:fullMode,
+                callback(){
+                    fullMode = !fullMode;
+                    localStorage.setItem('fullMode',fullMode ? 'Y' : 'N');
+                    changeMode();
+                }
+            },
+        ],
+
+    ...
+});
+
+```
 
 ***
 
