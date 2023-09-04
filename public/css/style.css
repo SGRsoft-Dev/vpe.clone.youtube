@@ -1,0 +1,94 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+.playerWarp{
+    width:100%;
+    background-color: #000;
+    overflow: auto;
+}
+
+.playerArea{
+    margin:auto;
+    aspect-ratio: 16/9;
+    max-height:60vh;
+}
+
+.container{
+    max-width:1200px !important;
+}
+.content{
+    max-width: 980px;
+    margin: auto;
+
+}
+
+.content{
+    max-width: 980px;
+}
+
+.basicMode{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top:20px;
+    min-width:1600px;
+
+}
+
+.basicMode .playerWarp{
+    width:calc(1200px - 13%);
+    order:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.basicMode .contentWarp{
+    width:100%;
+    order:3;
+    max-width:1250px;
+}
+
+.basicMode .playlistWarp{
+    width:calc(1200px - 86%);
+    order:2;
+    padding-left:20px;
+    overflow-y: auto;
+    max-height:100%;
+    aspect-ratio: 9/16;
+}
+
+
+
+.fullMode{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.fullMode .playerWarp{
+    width:100%;
+
+}
+
+.fullMode .contentWarp{
+    width:45%;
+    margin-right:20px;
+}
+
+.fullMode .playlistWarp{
+    width:15%;
+    padding-top:20px;
+}
